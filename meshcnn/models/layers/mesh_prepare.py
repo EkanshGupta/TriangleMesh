@@ -6,11 +6,7 @@ import random
 
 
 def fill_mesh(mesh2fill, file: str, opt):
-    # print(file)
-    # print(opt.num_aug)
-    # print("abcd")
-    load_path = get_mesh_path(file, opt.num_aug)
-    # print(load_path)
+    load_path = get_mesh_path(file, opt)
     if os.path.exists(load_path):
         mesh_data = np.load(load_path, encoding='latin1', allow_pickle=True)
     else:
@@ -32,11 +28,15 @@ def fill_mesh(mesh2fill, file: str, opt):
     mesh2fill.features = mesh_data['features']
     mesh2fill.sides = mesh_data['sides']
 
-def get_mesh_path(file: str, num_aug: int):
+def get_mesh_path(file: str, opt):
     filename, _ = os.path.splitext(file)
     dir_name = os.path.dirname(filename)
     prefix = os.path.basename(filename)
     load_dir = os.path.join(dir_name, 'cache')
+
+    num_aug = 1
+    if opt and 'num_aug' in opt:
+        num_aug = opt['num_aug']
     load_file = os.path.join(load_dir, '%s_%03d.npz' % (prefix, np.random.randint(0, num_aug)))
     if not os.path.isdir(load_dir):
         os.makedirs(load_dir, exist_ok=True)
@@ -60,11 +60,17 @@ def from_scratch(file, opt):
     mesh_data.vs, faces = fill_from_file(mesh_data, file)
     mesh_data.v_mask = np.ones(len(mesh_data.vs), dtype=bool)
     faces, face_areas = remove_non_manifolds(mesh_data, faces)
-    if opt.num_aug > 1:
+
+    num_aug = 1
+    if opt and 'num_aug' in opt:
+        num_aug = opt['num_aug']
+    if num_aug > 1:
         faces = augmentation(mesh_data, opt, faces)
+
     build_gemm(mesh_data, faces, face_areas)
-    if opt.num_aug > 1:
+    if num_aug > 1:
         post_augmentation(mesh_data, opt)
+
     mesh_data.features = extract_features(mesh_data)
     return mesh_data
 
@@ -119,29 +125,32 @@ def fill_from_file(mesh, file):
     mesh.fullfilename = file
     vs, faces = [], []
     # print(file)
+
+    # OBJ reading
+    with open(file, 'r') as f:
+        for line in f:
+            line = line.strip()
+            splitted_line = line.split()
+            if not splitted_line:
+                continue
+            elif splitted_line[0] == 'v':
+                vs.append([float(v) for v in splitted_line[1:4]])
+            elif splitted_line[0] == 'f':
+                face_vertex_ids = [int(c.split('/')[0]) for c in splitted_line[1:]]
+                assert len(face_vertex_ids) == 3
+                face_vertex_ids = [(ind - 1) if (ind >= 0) else (len(vs) + ind)
+                                for ind in face_vertex_ids]
+                faces.append(face_vertex_ids)
+
     '''
-    f = open(file)
-    for line in f:
-        line = line.strip()
-        splitted_line = line.split()
-        if not splitted_line:
-            continue
-        elif splitted_line[0] == 'v':
-            vs.append([float(v) for v in splitted_line[1:4]])
-        elif splitted_line[0] == 'f':
-            face_vertex_ids = [int(c.split('/')[0]) for c in splitted_line[1:]]
-            assert len(face_vertex_ids) == 3
-            face_vertex_ids = [(ind - 1) if (ind >= 0) else (len(vs) + ind)
-                               for ind in face_vertex_ids]
-            faces.append(face_vertex_ids)
-    f.close()
-    '''
+    # OFF reading
     with open(file, 'r') as f:
         if 'OFF' != f.readline().strip():
             raise('Not a valid OFF header')
         n_verts, n_faces, __ = tuple([int(s) for s in f.readline().strip().split(' ')])
         vs = [[float(s) for s in f.readline().strip().split(' ')] for i_vert in range(n_verts)]
         faces = [[int(s) for s in f.readline().strip().split(' ')][1:] for i_face in range(n_faces)]
+    '''
     vs = np.asarray(vs)
     faces = np.asarray(faces, dtype=int)
     face_normals, face_areas = get_face_areas_and_normals(vs,faces)
@@ -258,15 +267,15 @@ def compute_face_normals_and_areas(mesh, faces):
 
 # Data augmentation methods
 def augmentation(mesh, opt, faces=None):
-    if hasattr(opt, 'scale_verts') and opt.scale_verts:
+    if opt and 'scale_verts' in opt and opt['scale_verts']:
         scale_verts(mesh)
-    if hasattr(opt, 'flip_edges') and opt.flip_edges:
-        faces = flip_edges(mesh, opt.flip_edges, faces)
+    if opt and 'flip_edges' in opt and opt['flip_edges']:
+        faces = flip_edges(mesh, opt['flip_edges'], faces)
     return faces
 
 
 def post_augmentation(mesh, opt):
-    if hasattr(opt, 'slide_verts') and opt.slide_verts:
+    if opt and 'slide_verts' in opt and opt['slide_verts']:
         slide_verts(mesh, opt.slide_verts)
 
 
