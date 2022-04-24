@@ -1,10 +1,10 @@
 import torch
 import torch.nn as nn
 from threading import Thread
-from models.layers.mesh_union import MeshUnion
 import numpy as np
 from heapq import heappop, heapify
 
+from .mesh_union import MeshUnion
 
 class MeshPool(nn.Module):
     
