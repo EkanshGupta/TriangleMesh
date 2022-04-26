@@ -33,7 +33,7 @@ def read_yaml_config(yaml_config_path):
         os.path.abspath(os.path.join(
           os.path.dirname(yaml_config_path), obj
         ))
-        if ('/' in obj or '\\' in obj)
+        if ('/' in obj or '\\' in obj) and not os.path.isabs(obj)
         else obj
       )
     elif isinstance(obj, dict):
