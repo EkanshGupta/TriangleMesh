@@ -1,0 +1,55 @@
+# All relative paths are relative to this config file itself
+
+dataloader_opt:
+  gpu_ids: null
+  batch_size: 16
+  max_dataset_size: null
+  shuffle: True
+  num_threads: 0
+  dataset_opt:
+    ninput_edges: 750
+    num_points: 250
+    dataroot: '../../data/shrec_16/'
+
+
+recording_opt:
+  print_freq: 10                        # frequency of showing training results on console. default 10
+  save_latest_freq: 250                  # frequency of saving the latest results. default 250
+  save_epoch_freq: 1                   # frequency of saving checkpoints at the end of epochs. default 1
+  run_test_freq: 1                     # frequency of running test in training script. default 1
+
+model_wrapper_opt:
+  gpu_ids: null                       # list of ints, or null (for cpu)
+  checkpoints_dir: '../../outputs/checkpoints/'                   # str, parent folder for storing models (expt name will be a subfolder here)
+  expt_name: 'combine_mesh_dg--pilot'                         # str, name of expt; decides where to store models etc
+  continue_train: false                    # bool, whether to resume training from a given epoch (if training).
+  which_epoch: 'latest'                       # str, which epoch to load if testing or resuming training (default: 'latest'; can enter a number)
+
+  network_opt:                        # dict (nested options) for model architecture. see CombinedMeshClassifier for details
+    dgcnn_opt:
+      k: 5
+      emb_dims: 128
+    meshcnn_opt:
+      nf0: 5
+      conv_res: [64, 128, 256, 256]
+      input_res: 750    # would match ninput_edges in dataloader opt
+      pool_res: [600, 450, 300, 180]
+      norm: 'group'
+      num_groups: 16
+      nresblocks: 1
+    classifier_opt:
+      out_block_hidden_dim: 1024
+      out_num_classes: 30
+
+  net_init_opt:                       # dict (nested options) for weight init, structure:
+    init_type: 'normal'                       # str, type of initalization to use, among [normal|xavier|kaiming|orthogonal]. 'normal' is default
+    init_gain: 0.02                       # float, gain used for normal/xavier/orthogonal inits. 0.02 is default
+
+  lr_schedule_opt:                    # dict (nexted options) for LR schedule, structure:
+    lr: 0.0002                              # float, init LR, default 0.0002
+    lr_policy: 'lambda'                       # str, type of schedule, among lambda|step|plateau, default 'lambda'
+    lr_decay_iters: 50                  # int, decay by gamma every lr_decay_iters iterations (if step policy). default 50
+    lr_decay_gamma: 0.1                  # float, the gamma for decay for step policy. default 0.1
+    epoch_count: 1                     # int, the starting epoch count (if lambda policy). default 1
+    niter: 100                           # int, num epochs to be at starting LR (if lambda policy). default 100
+    niter_decay: 500                     # int, num epochs to decay LR linearly to zero (if lambda policy). default 500

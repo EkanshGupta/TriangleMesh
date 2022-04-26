@@ -48,18 +48,18 @@ class NoNorm(nn.Module): #todo with abstractclass and pass
     def __call__(self, x):
         return self.forward(x)
 
-def get_scheduler(optimizer, opt):
-    if opt.lr_policy == 'lambda':
+def get_scheduler(optimizer, opt: dict):
+    if opt['lr_policy'] == 'lambda':
         def lambda_rule(epoch):
-            lr_l = 1.0 - max(0, epoch + 1 + opt.epoch_count - opt.niter) / float(opt.niter_decay + 1)
+            lr_l = 1.0 - max(0, epoch + 1 + opt['epoch_count'] - opt['niter']) / float(opt['niter_decay'] + 1)
             return lr_l
         scheduler = lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_rule)
-    elif opt.lr_policy == 'step':
-        scheduler = lr_scheduler.StepLR(optimizer, step_size=opt.lr_decay_iters, gamma=0.1)
-    elif opt.lr_policy == 'plateau':
+    elif opt['lr_policy'] == 'step':
+        scheduler = lr_scheduler.StepLR(optimizer, step_size=opt['lr_decay_iters'], gamma=opt['lr_decay_gamma'])
+    elif opt['lr_policy'] == 'plateau':
         scheduler = lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.2, threshold=0.01, patience=5)
     else:
-        return NotImplementedError('learning rate policy [%s] is not implemented', opt.lr_policy)
+        return NotImplementedError('learning rate policy [%s] is not implemented', opt['lr_policy'])
     return scheduler
 
 
@@ -84,7 +84,7 @@ def init_weights(net, init_type, init_gain):
 
 
 def init_net(net, init_type, init_gain, gpu_ids):
-    if len(gpu_ids) > 0:
+    if gpu_ids and len(gpu_ids) > 0:
         assert(torch.cuda.is_available())
         net.cuda(gpu_ids[0])
         net = net.cuda()
