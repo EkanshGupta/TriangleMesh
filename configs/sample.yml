@@ -10,7 +10,7 @@ dataloader_opt:
   dataset_opt:
     ninput_edges: 750                     # 'ninput_edges': int, num edges to use for meshcnn (will pad if higher than actual)
     num_points: 250                       # 'num_points': int, num verts to use for dgcnn (has to be at most the actual num verts)
-    dataroot: '../../data/shrec_16/'      # 'dataroot': str, root folder of dataset
+    dataroot: '../data/shrec_16/'      # 'dataroot': str, root folder of dataset
 
 
 recording_opt:
@@ -21,7 +21,7 @@ recording_opt:
 
 model_wrapper_opt:
   gpu_ids: null                       # list of ints, or null (for cpu)
-  checkpoints_dir: '../../outputs/checkpoints/'                   # str, parent folder for storing models (expt name will be a subfolder here)
+  checkpoints_dir: '../outputs/checkpoints/'                   # str, parent folder for storing models (expt name will be a subfolder here)
   expt_name: 'combine_mesh_dg--pilot'                         # str, name of expt; decides where to store models etc
   continue_train: true                    # bool, whether to resume training from a given epoch (if training).
   which_epoch: 'latest'                       # str, which epoch to load if testing or resuming training (default: 'latest'; can enter a number)
