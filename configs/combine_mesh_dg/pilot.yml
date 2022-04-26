@@ -1,7 +1,7 @@
 # All relative paths are relative to this config file itself
 
 dataloader_opt:
-  gpu_ids: null                     # list of ints, gpu IDs to use - or null (for cpu)
+  gpu_ids: 0                     # list of ints, gpu IDs to use - or null (for cpu)
   batch_size: 16                    # int, batch size (default: 16)
   max_dataset_size: null            # int, max num samples of dataset to use (default: inf)
   shuffle: True                     # bool, Whether to shuffle or not
