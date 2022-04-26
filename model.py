@@ -160,21 +160,26 @@ class CombinedMeshClassifier(nn.Module):
         '''
         opt structure:
             'classifier_opt': dict (nested options), structure:
-                'out_block_hidden_dim': hidden layer size of output 2-layer MLP
-                'out_num_classes': num classes to classify, i.e. output layer size of output 2-layer MLP
+                'out_num_classes': int, num classes to classify i.e. final layer size of output MLP
+                'out_block_hidden_dims': list of ints, hidden layer sizes of output MLP
             'dgcnn_opt': dict (nested options), see DGCNN feat ex for details
             'meshcnn_opt': dict (nested options), see MeshCNN feat ex for details
         '''
         super(CombinedMeshClassifier, self).__init__()
 
-        classifier_opt = opt['classifier_opt']
-
         self.feat_ex = CombinedFeatureExtractor(dgcnn_opt=opt['dgcnn_opt'], meshcnn_opt=opt['meshcnn_opt'])
-        self.output_block = nn.Sequential(
-            nn.Linear(in_features=self.feat_ex.feat_dim, out_features=classifier_opt['out_block_hidden_dim']),
-            nn.ReLU(),
-            nn.Linear(in_features=classifier_opt['out_block_hidden_dim'], out_features=classifier_opt['out_num_classes'])
-        )
+
+        classifier_opt = opt['classifier_opt']
+        out_layers = []
+        in_dim = self.feat_ex.feat_dim
+        for hdim in classifier_opt['out_block_hidden_dims']:
+            out_layers.extend([
+                nn.Linear(in_features=in_dim, out_features=hdim),
+                nn.ReLU()
+            ])
+            in_dim = hdim
+        out_layers.append(nn.Linear(in_features=in_dim, out_features=classifier_opt['out_num_classes']))
+        self.output_block = nn.Sequential(out_layers)
 
     def forward(self, vertex_input_batch, edge_input_batch, mesh_batch):
         combined_feats = self.feat_ex(vertex_input_batch, edge_input_batch, mesh_batch)
