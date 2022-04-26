@@ -1,11 +1,11 @@
 # All relative paths are relative to this config file itself
 
 dataloader_opt:
-  gpu_ids: 0                     # list of ints, gpu IDs to use - or null (for cpu)
+  gpu_ids: [0]                     # list of ints, gpu IDs to use - or null (for cpu) make sure this field in model_wrapper_opt is also filled in
   batch_size: 16                    # int, batch size (default: 16)
   max_dataset_size: null            # int, max num samples of dataset to use (default: inf)
   shuffle: True                     # bool, Whether to shuffle or not
-  num_threads: 3                    # int, num threads for dataloader - 0 for no multithreading
+  num_threads: 0                    # int, num threads for dataloader - 0 for no multithreading
 
   dataset_opt:
     ninput_edges: 750                     # 'ninput_edges': int, num edges to use for meshcnn (will pad if higher than actual)
@@ -20,7 +20,7 @@ recording_opt:
   run_test_freq: 1                     # frequency of running test in training script. default 1
 
 model_wrapper_opt:
-  gpu_ids: null                       # list of ints, or null (for cpu)
+  gpu_ids: [0]                       # list of ints, or null (for cpu)
   checkpoints_dir: '../../outputs/checkpoints/'                   # str, parent folder for storing models (expt name will be a subfolder here)
   expt_name: 'combine_mesh_dg--pilot'                         # str, name of expt; decides where to store models etc
   continue_train: true                    # bool, whether to resume training from a given epoch (if training).
