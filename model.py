@@ -179,7 +179,7 @@ class CombinedMeshClassifier(nn.Module):
             ])
             in_dim = hdim
         out_layers.append(nn.Linear(in_features=in_dim, out_features=classifier_opt['out_num_classes']))
-        self.output_block = nn.Sequential(out_layers)
+        self.output_block = nn.Sequential(*out_layers)
 
     def forward(self, vertex_input_batch, edge_input_batch, mesh_batch):
         combined_feats = self.feat_ex(vertex_input_batch, edge_input_batch, mesh_batch)
