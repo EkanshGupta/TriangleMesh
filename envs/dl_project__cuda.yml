@@ -1,0 +1,23 @@
+name: dl_project__cuda
+channels:
+  - defaults
+  - pytorch
+dependencies:
+  - numpy
+  - matplotlib
+  - h5py
+  - tqdm
+  - pyyaml
+  - scikit-learn
+  - ipykernel
+  - ipython
+  - jupyter
+  - ipywidgets
+  - notebook
+  - python=3.7.*
+  - pip
+  - pytorch=1.10.*
+  # - torchvision
+  # - torchaudio
+  # - cpuonly
+  - cudatoolkit=11.3
