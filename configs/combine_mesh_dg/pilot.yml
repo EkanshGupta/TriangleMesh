@@ -1,15 +1,16 @@
 # All relative paths are relative to this config file itself
 
 dataloader_opt:
-  gpu_ids: null
-  batch_size: 16
-  max_dataset_size: null
-  shuffle: True
-  num_threads: 0
+  gpu_ids: null                     # list of ints, gpu IDs to use - or null (for cpu)
+  batch_size: 16                    # int, batch size (default: 16)
+  max_dataset_size: null            # int, max num samples of dataset to use (default: inf)
+  shuffle: True                     # bool, Whether to shuffle or not
+  num_threads: 3                    # int, num threads for dataloader - 0 for no multithreading
+
   dataset_opt:
-    ninput_edges: 750
-    num_points: 250
-    dataroot: '../../data/shrec_16/'
+    ninput_edges: 750                     # 'ninput_edges': int, num edges to use for meshcnn (will pad if higher than actual)
+    num_points: 250                       # 'num_points': int, num verts to use for dgcnn (has to be at most the actual num verts)
+    dataroot: '../../data/shrec_16/'      # 'dataroot': str, root folder of dataset
 
 
 recording_opt:
@@ -27,19 +28,19 @@ model_wrapper_opt:
 
   network_opt:                        # dict (nested options) for model architecture. see CombinedMeshClassifier for details
     dgcnn_opt:
-      k: 5
-      emb_dims: 128
+      k: 5                                      # int, for k-NN
+      emb_dims: 128                             # int, used to calc hidden size for various layers
     meshcnn_opt:
-      nf0: 5
-      conv_res: [64, 128, 256, 256]
-      input_res: 750    # would match ninput_edges in dataloader opt
-      pool_res: [600, 450, 300, 180]
-      norm: 'group'
-      num_groups: 16
-      nresblocks: 1
+      nf0: 5                                    # int, num input channels (5 for the usual MeshCNN initial edge features)
+      conv_res: [64, 128, 256, 256]             # list of ints, num out channels (i.e. filters) for each meshconv layer. default [16, 32, 32]
+      input_res: 750                            # int, num input edges (we take only this many edges from each input mesh). default 750. corresponds with ninput_edges in dataloader_opt
+      pool_res: [600, 450, 300, 180]            # list of ints, num edges to keep after each meshpool layer. default [1140, 780, 580] 
+      norm: 'group'                             # str, one of ['batch', 'instance', 'group', 'none'], type of norm layer to use. default 'batch'
+      num_groups: 16                            # int, num of groups for groupnorm. default 16
+      nresblocks: 1                             # int, num res blocks in each mresconv. default 0
     classifier_opt:
-      out_block_hidden_dim: 1024
-      out_num_classes: 30
+      out_num_classes: 30                       # int, num classes to classify (also the size of the final layer of the classifier)
+      out_block_hidden_dims: [1024]             # list of ints, hidden layer sizes for each layer of the output block 
 
   net_init_opt:                       # dict (nested options) for weight init, structure:
     init_type: 'normal'                       # str, type of initalization to use, among [normal|xavier|kaiming|orthogonal]. 'normal' is default
