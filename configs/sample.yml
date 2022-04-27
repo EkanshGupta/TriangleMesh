@@ -22,8 +22,8 @@ recording_opt:
 model_wrapper_opt:
   gpu_ids: null                       # list of ints, or null (for cpu)
   checkpoints_dir: '../outputs/checkpoints/'                   # str, parent folder for storing models (expt name will be a subfolder here)
-  expt_name: 'combine_mesh_dg--pilot'                         # str, name of expt; decides where to store models etc
-  continue_train: true                    # bool, whether to resume training from a given epoch (if training).
+  expt_name: 'sample'                         # str, name of expt; decides where to store models etc
+  continue_train: false                    # bool, whether to resume training from a given epoch (if training).
   which_epoch: 'latest'                       # str, which epoch to load if testing or resuming training (default: 'latest'; can enter a number)
 
   network_opt:                        # dict (nested options) for model architecture. see CombinedMeshClassifier for details
