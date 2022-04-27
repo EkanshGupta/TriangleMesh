@@ -49,7 +49,7 @@ class ClassifierWrapper:
         # load/define networks
         self.net = CombinedMeshClassifier(opt['network_opt'])
         init_opt = opt['net_init_opt']
-        networks.init_net(self.net, init_opt['init_type'], init_opt['init_gain'], self.gpu_ids)
+        self.net = networks.init_net(self.net, init_opt['init_type'], init_opt['init_gain'], self.gpu_ids)
         self.net.train(self.is_train)
 
         self.criterion = torch.nn.CrossEntropyLoss().to(self.device)
