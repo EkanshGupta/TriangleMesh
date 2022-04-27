@@ -38,6 +38,7 @@ model_wrapper_opt:
       norm: 'group'                             # str, one of ['batch', 'instance', 'group', 'none'], type of norm layer to use. default 'batch'
       num_groups: 16                            # int, num of groups for groupnorm. default 16
       nresblocks: 1                             # int, num res blocks in each mresconv. default 0
+      global_pool_type: 'max'                  # str - ['avg'|'max'|'both']. type(s) of global pooling to use at the end (if 'both', the two will be concatenated)
     classifier_opt:
       out_num_classes: 30                       # int, num classes to classify (also the size of the final layer of the classifier)
       out_block_hidden_dims: [1024]             # list of ints, hidden layer sizes for each layer of the output block 

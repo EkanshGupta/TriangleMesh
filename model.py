@@ -105,6 +105,9 @@ class MeshCNNFeatureExtractor(nn.Module):
             'nresblocks': int
                 num res blocks in each mresconv
                 Corresponds to "opt.resblocks" in original code, with default 0
+
+            'global_pool_type': str, ['avg'|'max'|'both']
+                type(s) of global pooling to use at the end (if 'both', the two will be concatenated)
         '''
         super(MeshCNNFeatureExtractor, self).__init__()
         self.k = [opt['nf0']] + opt['conv_res']
@@ -119,10 +122,11 @@ class MeshCNNFeatureExtractor(nn.Module):
             setattr(self, 'pool{}'.format(i), MeshPool(self.res[i + 1]))
 
 
-        self.gp = nn.AvgPool1d(self.res[-1])
-        # self.gp = nn.MaxPool1d(self.res[-1])
+        self.global_pool_type = opt['global_pool_type']
+        self.gp_avg = nn.AvgPool1d(self.res[-1])
+        self.gp_max = nn.MaxPool1d(self.res[-1])
 
-        self.feat_dim = self.k[-1]
+        self.feat_dim = self.k[-1] * (2 if self.global_pool_type == 'both' else 1)
 
     def forward(self, x, mesh):
 
@@ -131,8 +135,16 @@ class MeshCNNFeatureExtractor(nn.Module):
             x = F.relu(getattr(self, 'norm{}'.format(i))(x))
             x = getattr(self, 'pool{}'.format(i))(x, mesh)
 
-        x = self.gp(x)
-        x = x.view(-1, self.k[-1])
+        x_avg = self.gp_avg(x).view(-1, self.k[-1])
+        x_max = self.gp_max(x).view(-1, self.k[-1])
+        x_list = []
+        if self.global_pool_type == 'both':
+            x_list.extend([x_avg, x_max])
+        elif self.global_pool_type == 'avg':
+            x_list.extend([x_avg])
+        elif self.global_pool_type == 'max':
+            x_list.extend([x_max])
+        x = torch.cat(x_list, dim=1)
 
         return x
 
