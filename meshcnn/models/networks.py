@@ -51,7 +51,10 @@ class NoNorm(nn.Module): #todo with abstractclass and pass
 def get_scheduler(optimizer, opt: dict):
     if opt['lr_policy'] == 'lambda':
         def lambda_rule(epoch):
-            lr_l = 1.0 - max(0, epoch + 1 + opt['epoch_count'] - opt['niter']) / float(opt['niter_decay'] + 1)
+            lr_l = 1.0 - (
+                max(0, epoch + 1 - opt['num_epochs_constant_lr']) /
+                    float(opt['num_epochs'] - opt['num_epochs_constant_lr'] + 1)
+            )
             return lr_l
         scheduler = lr_scheduler.LambdaLR(optimizer, lr_lambda=lambda_rule)
     elif opt['lr_policy'] == 'step':

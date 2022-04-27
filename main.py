@@ -86,7 +86,9 @@ def train(opt: dict):
     batch_size = dataloader_opt['batch_size']
 
     total_steps = 0
-    for epoch in range(lr_schedule_opt['epoch_count'], lr_schedule_opt['niter'] + lr_schedule_opt['niter_decay'] + 1):
+    start_epoch = lr_schedule_opt['start_epoch']
+    end_epoch = start_epoch + lr_schedule_opt['num_epochs'] - 1
+    for epoch in range(start_epoch, end_epoch + 1):
         epoch_start_time = time.time()
         iter_data_time = time.time()
         epoch_iter = 0
@@ -118,7 +120,7 @@ def train(opt: dict):
             model.save_network(epoch)
 
         print('End of epoch %d / %d \t Time Taken: %d sec' %
-                (epoch, lr_schedule_opt['niter'] + lr_schedule_opt['niter_decay'], time.time() - epoch_start_time))
+                (epoch, end_epoch, time.time() - epoch_start_time))
         model.update_learning_rate()
 
         if epoch % recording_opt['run_test_freq'] == 0:

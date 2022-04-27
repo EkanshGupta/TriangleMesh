@@ -38,7 +38,7 @@ model_wrapper_opt:
       norm: 'group'                             # str, one of ['batch', 'instance', 'group', 'none'], type of norm layer to use. default 'batch'
       num_groups: 16                            # int, num of groups for groupnorm. default 16
       nresblocks: 1                             # int, num res blocks in each mresconv. default 0
-      global_pool_type: 'max'                  # str - ['avg'|'max'|'both']. type(s) of global pooling to use at the end (if 'both', the two will be concatenated)
+      global_pool_type: 'both'                  # str - ['avg'|'max'|'both']. type(s) of global pooling to use at the end (if 'both', the two will be concatenated)
     classifier_opt:
       out_num_classes: 30                       # int, num classes to classify (also the size of the final layer of the classifier)
       out_block_hidden_dims: [1024]             # list of ints, hidden layer sizes for each layer of the output block 
@@ -52,6 +52,6 @@ model_wrapper_opt:
     lr_policy: 'lambda'                       # str, type of schedule, among lambda|step|plateau, default 'lambda'
     lr_decay_iters: 50                  # int, decay by gamma every lr_decay_iters iterations (if step policy). default 50
     lr_decay_gamma: 0.1                  # float, the gamma for decay for step policy. default 0.1
-    epoch_count: 1                     # int, the starting epoch count (if lambda policy). default 1
-    niter: 100                           # int, num epochs to be at starting LR (if lambda policy). default 100
-    niter_decay: 500                     # int, num epochs to decay LR linearly to zero (if lambda policy). default 500
+    num_epochs: 250                      # int, num epochs to train for. default 250
+    start_epoch: 1                     # int, the starting epoch count. default 1
+    num_epochs_constant_lr: 50           # int, num epochs to be at starting LR (if lambda policy). default 50. rest of iters will be used to decay linearly to zero
