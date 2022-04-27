@@ -1,0 +1,57 @@
+# All relative paths are relative to this config file itself
+
+dataloader_opt:
+  gpu_ids: [0]                     # list of ints, gpu IDs to use - or null (for cpu) make sure this field in model_wrapper_opt is also filled in
+  batch_size: 16                    # int, batch size (default: 16)
+  max_dataset_size: null            # int, max num samples of dataset to use (default: inf)
+  shuffle: True                     # bool, Whether to shuffle or not
+  num_threads: 0                    # int, num threads for dataloader - 0 for no multithreading
+
+  dataset_opt:
+    ninput_edges: 750                     # 'ninput_edges': int, num edges to use for meshcnn (will pad if higher than actual)
+    num_points: 250                       # 'num_points': int, num verts to use for dgcnn (has to be at most the actual num verts)
+    dataroot: '../../data/shrec_16/'      # 'dataroot': str, root folder of dataset
+
+
+recording_opt:
+  print_freq: 10                        # frequency of showing training results on console. default 10
+  save_latest_freq: 250                  # frequency of saving the latest results. default 250
+  save_epoch_freq: 1                   # frequency of saving checkpoints at the end of epochs. default 1
+  run_test_freq: 1                     # frequency of running test in training script. default 1
+
+model_wrapper_opt:
+  gpu_ids: [0]                       # list of ints, or null (for cpu)
+  checkpoints_dir: '../../outputs/checkpoints/dgcnn_k'                   # str, parent folder for storing models (expt name will be a subfolder here)
+  expt_name: 'k15'                         # str, name of expt; decides where to store models etc
+  continue_train: false                    # bool, whether to resume training from a given epoch (if training).
+  which_epoch: 'latest'                       # str, which epoch to load if testing or resuming training (default: 'latest'; can enter a number)
+
+  network_opt:                        # dict (nested options) for model architecture. see CombinedMeshClassifier for details
+    dgcnn_opt:
+      k: 15                                      # int, for k-NN
+      emb_dims: 128                             # int, used to calc hidden size for various layers
+    meshcnn_opt:
+      nf0: 5                                    # int, num input channels (5 for the usual MeshCNN initial edge features)
+      conv_res: [32, 64, 128, 256]             # list of ints, num out channels (i.e. filters) for each meshconv layer. default [16, 32, 32]
+      input_res: 750                            # int, num input edges (we take only this many edges from each input mesh). default 750. corresponds with ninput_edges in dataloader_opt
+      pool_res: [600, 450, 300, 279]            # list of ints, num edges to keep after each meshpool layer. default [1140, 780, 580] 
+      norm: 'group'                             # str, one of ['batch', 'instance', 'group', 'none'], type of norm layer to use. default 'batch'
+      num_groups: 16                            # int, num of groups for groupnorm. default 16
+      nresblocks: 1                             # int, num res blocks in each mresconv. default 0
+      global_pool_type: 'avg'                  # str - ['avg'|'max'|'both']. type(s) of global pooling to use at the end (if 'both', the two will be concatenated)
+    classifier_opt:
+      out_num_classes: 30                       # int, num classes to classify (also the size of the final layer of the classifier)
+      out_block_hidden_dims: [100]             # list of ints, hidden layer sizes for each layer of the output block 
+
+  net_init_opt:                       # dict (nested options) for weight init, structure:
+    init_type: 'normal'                       # str, type of initalization to use, among [normal|xavier|kaiming|orthogonal]. 'normal' is default
+    init_gain: 0.02                       # float, gain used for normal/xavier/orthogonal inits. 0.02 is default
+
+  lr_schedule_opt:                    # dict (nexted options) for LR schedule, structure:
+    lr: 0.0002                              # float, init LR, default 0.0002
+    lr_policy: 'lambda'                       # str, type of schedule, among lambda|step|plateau, default 'lambda'
+    num_epochs: 250                      # int, num epochs to train for. default 250
+    start_epoch: 1                     # int, the starting epoch count. default 1
+    num_epochs_constant_lr: 50           # int, num epochs to be at starting LR (if lambda policy). default 50. rest of iters will be used to decay linearly to zero
+    lr_decay_iters: 50                  # int, decay by gamma every lr_decay_iters iterations (if step policy). default 50
+    lr_decay_gamma: 0.1                  # float, the gamma for decay for step policy. default 0.1
