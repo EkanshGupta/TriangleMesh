@@ -34,7 +34,7 @@ model_wrapper_opt:
       nf0: 5                                    # int, num input channels (5 for the usual MeshCNN initial edge features)
       conv_res: [32, 64, 128, 256]             # list of ints, num out channels (i.e. filters) for each meshconv layer. default [16, 32, 32]
       input_res: 750                            # int, num input edges (we take only this many edges from each input mesh). default 750. corresponds with ninput_edges in dataloader_opt
-      pool_res: [600, 450, 300, 279]            # list of ints, num edges to keep after each meshpool layer. default [1140, 780, 580] 
+      pool_res: [600, 450, 300, 150]            # list of ints, num edges to keep after each meshpool layer. default [1140, 780, 580] 
       norm: 'group'                             # str, one of ['batch', 'instance', 'group', 'none'], type of norm layer to use. default 'batch'
       num_groups: 16                            # int, num of groups for groupnorm. default 16
       nresblocks: 1                             # int, num res blocks in each mresconv. default 0
