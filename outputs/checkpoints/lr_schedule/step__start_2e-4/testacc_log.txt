@@ -538,3 +538,213 @@ epoch: 179, TEST ACC: [92.5 %]
 ================ Testing Acc (Fri Apr 29 23:21:02 2022) ================
 epoch: 180, TEST ACC: [91.667 %]
 
+================ Testing Acc (Fri Apr 29 23:21:33 2022) ================
+epoch: 181, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:22:03 2022) ================
+epoch: 182, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:22:33 2022) ================
+epoch: 183, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:23:03 2022) ================
+epoch: 184, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:23:34 2022) ================
+epoch: 185, TEST ACC: [94.167 %]
+
+================ Testing Acc (Fri Apr 29 23:24:05 2022) ================
+epoch: 186, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:24:35 2022) ================
+epoch: 187, TEST ACC: [94.167 %]
+
+================ Testing Acc (Fri Apr 29 23:25:05 2022) ================
+epoch: 188, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:25:36 2022) ================
+epoch: 189, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:26:06 2022) ================
+epoch: 190, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:26:36 2022) ================
+epoch: 191, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:27:06 2022) ================
+epoch: 192, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:27:37 2022) ================
+epoch: 193, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:28:08 2022) ================
+epoch: 194, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:28:39 2022) ================
+epoch: 195, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:29:10 2022) ================
+epoch: 196, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:29:41 2022) ================
+epoch: 197, TEST ACC: [90.0 %]
+
+================ Testing Acc (Fri Apr 29 23:30:12 2022) ================
+epoch: 198, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:30:43 2022) ================
+epoch: 199, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:31:14 2022) ================
+epoch: 200, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:31:45 2022) ================
+epoch: 201, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:32:16 2022) ================
+epoch: 202, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:32:47 2022) ================
+epoch: 203, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:33:18 2022) ================
+epoch: 204, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:33:48 2022) ================
+epoch: 205, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:34:20 2022) ================
+epoch: 206, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:34:51 2022) ================
+epoch: 207, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:35:22 2022) ================
+epoch: 208, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:35:53 2022) ================
+epoch: 209, TEST ACC: [89.167 %]
+
+================ Testing Acc (Fri Apr 29 23:36:24 2022) ================
+epoch: 210, TEST ACC: [90.0 %]
+
+================ Testing Acc (Fri Apr 29 23:36:55 2022) ================
+epoch: 211, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:37:25 2022) ================
+epoch: 212, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:37:56 2022) ================
+epoch: 213, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:38:27 2022) ================
+epoch: 214, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:38:57 2022) ================
+epoch: 215, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:39:27 2022) ================
+epoch: 216, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:39:58 2022) ================
+epoch: 217, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:40:29 2022) ================
+epoch: 218, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:41:00 2022) ================
+epoch: 219, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:41:30 2022) ================
+epoch: 220, TEST ACC: [90.833 %]
+
+================ Testing Acc (Fri Apr 29 23:42:01 2022) ================
+epoch: 221, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:42:31 2022) ================
+epoch: 222, TEST ACC: [89.167 %]
+
+================ Testing Acc (Fri Apr 29 23:43:02 2022) ================
+epoch: 223, TEST ACC: [90.833 %]
+
+================ Testing Acc (Fri Apr 29 23:43:33 2022) ================
+epoch: 224, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:44:03 2022) ================
+epoch: 225, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:44:33 2022) ================
+epoch: 226, TEST ACC: [94.167 %]
+
+================ Testing Acc (Fri Apr 29 23:45:04 2022) ================
+epoch: 227, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:45:34 2022) ================
+epoch: 228, TEST ACC: [90.0 %]
+
+================ Testing Acc (Fri Apr 29 23:46:04 2022) ================
+epoch: 229, TEST ACC: [94.167 %]
+
+================ Testing Acc (Fri Apr 29 23:46:35 2022) ================
+epoch: 230, TEST ACC: [89.167 %]
+
+================ Testing Acc (Fri Apr 29 23:47:06 2022) ================
+epoch: 231, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:47:36 2022) ================
+epoch: 232, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:48:07 2022) ================
+epoch: 233, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:48:38 2022) ================
+epoch: 234, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:49:09 2022) ================
+epoch: 235, TEST ACC: [90.833 %]
+
+================ Testing Acc (Fri Apr 29 23:49:40 2022) ================
+epoch: 236, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:50:11 2022) ================
+epoch: 237, TEST ACC: [90.0 %]
+
+================ Testing Acc (Fri Apr 29 23:50:42 2022) ================
+epoch: 238, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:51:13 2022) ================
+epoch: 239, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:51:44 2022) ================
+epoch: 240, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:52:14 2022) ================
+epoch: 241, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:52:45 2022) ================
+epoch: 242, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:53:15 2022) ================
+epoch: 243, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:53:46 2022) ================
+epoch: 244, TEST ACC: [92.5 %]
+
+================ Testing Acc (Fri Apr 29 23:54:17 2022) ================
+epoch: 245, TEST ACC: [90.0 %]
+
+================ Testing Acc (Fri Apr 29 23:54:47 2022) ================
+epoch: 246, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:55:18 2022) ================
+epoch: 247, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:55:49 2022) ================
+epoch: 248, TEST ACC: [93.333 %]
+
+================ Testing Acc (Fri Apr 29 23:56:18 2022) ================
+epoch: 249, TEST ACC: [91.667 %]
+
+================ Testing Acc (Fri Apr 29 23:56:46 2022) ================
+epoch: 250, TEST ACC: [91.667 %]
+
