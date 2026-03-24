@@ -1,8 +1,6 @@
 # TriangleMesh: Deep Networks for 3D Mesh Classification
 
-This repository contains the official implementation and hybrid architecture (MeshCNN + DGCNN) described in the research paper:
-
-**"Decoding 3D Geometry: Deep Networks for Mesh Classification"**  
+This repository contains the official implementation and hybrid architecture (MeshCNN + DGCNN) described in the research paper: **"Decoding 3D Geometry: Deep Networks for Mesh Classification"**  
 
 ---
 
